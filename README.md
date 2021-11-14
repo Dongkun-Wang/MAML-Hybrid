@@ -11,13 +11,13 @@ Yes, this is "Model-Agnostic Meta-Learning". The biggest difference between MAML
 1. Pull repository.
 
 ```shell
-git clone https://github.com/Runist/MAML-keras.git
+git clone https://github.com/txsldkly/MAML-Hybrid.git
 ```
 
 2. You need to install some dependency package.
 
 ```shell
-cd MAML-keras
+cd MAML-Hybrid
 pip installl -r requirements.txt
 ```
 
