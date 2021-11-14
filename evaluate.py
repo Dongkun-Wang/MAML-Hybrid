@@ -25,25 +25,25 @@ if __name__ == '__main__':
     maml = MAML(args.input_shape, args.n_way)
 
     # 对比测试
-
+    test_data = val_data.get_one_batch()
     # mnist weights
     mnist_model.meta_model.load_weights("saved_model/mnist.h5")
     optimizer = optimizers.Adam(args.inner_lr)
-    val_loss, val_acc = mnist_model.train_on_batch(val_data.get_one_batch(), inner_optimizer=optimizer, inner_step=3)
+    val_loss, val_acc = mnist_model.train_on_batch(test_data, inner_optimizer=optimizer, inner_step=3)
     print("Model with mnist initialize weight train for 3 step, val loss: {:.4f}, accuracy: {:.4f}.".format(val_loss, val_acc))
 
     mnist_model.meta_model.load_weights("saved_model/mnist.h5")
     optimizer = optimizers.Adam(args.inner_lr)
-    val_loss, val_acc = mnist_model.train_on_batch(val_data.get_one_batch(), inner_optimizer=optimizer, inner_step=5)
+    val_loss, val_acc = mnist_model.train_on_batch(test_data, inner_optimizer=optimizer, inner_step=5)
     print("Model with mnist initialize weight train for 5 step, val loss: {:.4f}, accuracy: {:.4f}.".format(val_loss, val_acc))
 
     # maml weights
     maml.meta_model.load_weights("saved_model/maml.h5")
     optimizer = optimizers.Adam(args.inner_lr)
-    val_loss, val_acc = maml.train_on_batch(val_data.get_one_batch(), inner_optimizer=optimizer, inner_step=3)
-    print("Model with maml weight train for 3 step, val loss: {:.4f}, accuracy: {:.4f}.".format(val_loss, val_acc))
+    val_loss, val_acc = maml.train_on_batch(test_data, inner_optimizer=optimizer, inner_step=3)
+    print("Model with maml initialize weight train for 3 step, val loss: {:.4f}, accuracy: {:.4f}.".format(val_loss, val_acc))
 
     maml.meta_model.load_weights("saved_model/maml.h5")
     optimizer = optimizers.Adam(args.inner_lr)
-    val_loss, val_acc = maml.train_on_batch(val_data.get_one_batch(), inner_optimizer=optimizer, inner_step=5)
-    print("Model with maml weight train for 5 step, val loss: {:.4f}, accuracy: {:.4f}.".format(val_loss, val_acc))
+    val_loss, val_acc = maml.train_on_batch(test_data, inner_optimizer=optimizer, inner_step=5)
+    print("Model with maml initialize weight train for 5 step, val loss: {:.4f}, accuracy: {:.4f}.".format(val_loss, val_acc))

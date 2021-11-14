@@ -11,7 +11,7 @@ Yes, this is "Model-Agnostic Meta-Learning". The biggest difference between MAML
 1. Pull repository.
 
 ```shell
-git clone https://github.com/txsldkly/MAML-Hybrid.git
+git clone https://github.com/Dongkun-Wang/MAML-Hybrid.git
 ```
 
 2. You need to install some dependency package.
@@ -19,6 +19,7 @@ git clone https://github.com/txsldkly/MAML-Hybrid.git
 ```shell
 cd MAML-Hybrid
 pip installl -r requirements.txt
+cd ..
 ```
 
 3. Download the *Omiglot* dataset and maml weights.
