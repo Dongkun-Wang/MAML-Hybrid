@@ -7,10 +7,8 @@
 
 from tensorflow.keras import optimizers, utils, metrics
 import tensorflow as tf
-import numpy as np
-
 from dataReader import MAMLDataLoader
-from net import MAML
+from meta_model import MAML
 from config import args
 import os
 
@@ -29,23 +27,23 @@ if __name__ == '__main__':
     # 对比测试
 
     # mnist weights
-    mnist_model.meta_model.load_weights("mnist.h5")
+    mnist_model.meta_model.load_weights("saved_model/mnist.h5")
     optimizer = optimizers.Adam(args.inner_lr)
     val_loss, val_acc = mnist_model.train_on_batch(val_data.get_one_batch(), inner_optimizer=optimizer, inner_step=3)
     print("Model with mnist initialize weight train for 3 step, val loss: {:.4f}, accuracy: {:.4f}.".format(val_loss, val_acc))
 
-    mnist_model.meta_model.load_weights("mnist.h5")
+    mnist_model.meta_model.load_weights("saved_model/mnist.h5")
     optimizer = optimizers.Adam(args.inner_lr)
     val_loss, val_acc = mnist_model.train_on_batch(val_data.get_one_batch(), inner_optimizer=optimizer, inner_step=5)
     print("Model with mnist initialize weight train for 5 step, val loss: {:.4f}, accuracy: {:.4f}.".format(val_loss, val_acc))
 
     # maml weights
-    maml.meta_model.load_weights("maml.h5")
+    maml.meta_model.load_weights("saved_model/maml.h5")
     optimizer = optimizers.Adam(args.inner_lr)
     val_loss, val_acc = maml.train_on_batch(val_data.get_one_batch(), inner_optimizer=optimizer, inner_step=3)
     print("Model with maml weight train for 3 step, val loss: {:.4f}, accuracy: {:.4f}.".format(val_loss, val_acc))
 
-    maml.meta_model.load_weights("maml.h5")
+    maml.meta_model.load_weights("saved_model/maml.h5")
     optimizer = optimizers.Adam(args.inner_lr)
     val_loss, val_acc = maml.train_on_batch(val_data.get_one_batch(), inner_optimizer=optimizer, inner_step=5)
     print("Model with maml weight train for 5 step, val loss: {:.4f}, accuracy: {:.4f}.".format(val_loss, val_acc))

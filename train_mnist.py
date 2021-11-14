@@ -4,7 +4,7 @@
 # @Time : 2021/9/3 9:25
 # @Software: PyCharm
 # @Brief:
-from net import MAML
+from meta_model import MAML
 from tensorflow.keras import datasets, losses, optimizers, metrics
 from config import args
 import numpy as np
@@ -21,7 +21,7 @@ if __name__ == '__main__':
             tf.config.experimental.set_memory_growth(gpu, True)
 
     maml = MAML(args.input_shape, 10)
-    model = maml.get_maml_model()
+    model = maml.get_meta_model()
 
     (x_train, y_train), (x_test, y_test) = datasets.mnist.load_data()
 
@@ -41,4 +41,4 @@ if __name__ == '__main__':
 
     model.fit(x_train, y_train, epochs=3, shuffle=True, batch_size=256 )
     model.evaluate(x_test, y_test)
-    model.save_weights("mnist.h5")
+    model.save_weights("saved_model/mnist.h5")

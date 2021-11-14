@@ -9,12 +9,11 @@ import random
 import numpy as np
 import glob
 import cv2 as cv
-import tensorflow as tf
 
 
 class MAMLDataLoader:
 
-    def __init__(self, data_path, batch_size, n_way=5, k_shot=1, q_query=1):
+    def __init__(self, data_path, batch_size, n_way_config, k_shot_config, q_query_config):
         """
         MAML数据读取器
         :param data_path: 数据路径，此文件夹下需要有分好类的子文件夹
@@ -24,11 +23,10 @@ class MAMLDataLoader:
         :param q_query: 一个类中有几个图片用于Outer looper的训练
         """
         self.file_list = [f for f in glob.glob(data_path + "**/character*", recursive=True)]
-        self.steps = len(self.file_list) // batch_size
-
-        self.n_way = n_way
-        self.k_shot = k_shot
-        self.q_query = q_query
+        self.steps = len(self.file_list) // batch_size//k_shot_config
+        self.n_way = n_way_config
+        self.k_shot = k_shot_config
+        self.q_query = q_query_config
         self.meta_batch_size = batch_size
 
     def __len__(self):
@@ -48,6 +46,7 @@ class MAMLDataLoader:
         query_image = []
         query_label = []
 
+        # Select n-ways randomly
         for label, img_dir in enumerate(img_dirs):
             img_list = [f for f in glob.glob(img_dir + "**/*.png", recursive=True)]
             images = random.sample(img_list, self.k_shot + self.q_query)
