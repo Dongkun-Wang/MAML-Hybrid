@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # @File : evaluate.py
-# @Author: Runist
 # @Time : 2021/4/26 15:42
 # @Software: PyCharm
 # @Brief: 测试脚本

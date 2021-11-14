@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # @File : meta_model.py
 # @Time : 2021/11/6 16:52
-# @Software: PyCharm
 # @Brief: 实现模型分类的网络，与网络结构无关，重点在训练过程
 
 from tensorflow.keras import layers, models, losses

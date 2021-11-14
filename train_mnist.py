@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # @File : train_mnist.py
-# @Author: Runist
 # @Time : 2021/9/3 9:25
 # @Software: PyCharm
 # @Brief:

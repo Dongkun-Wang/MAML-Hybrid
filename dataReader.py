@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # @File : dataReader.py
-# @Author: Runist
 # @Time : 2020/7/7 10:06
 # @Software: PyCharm
 # @Brief: 数据读取脚本

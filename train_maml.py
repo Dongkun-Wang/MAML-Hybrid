@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # @File : train_maml.py
-# @Author: Runist
 # @Time : 2021/10/23 17:30
 # @Software: PyCharm
 # @Brief: 训练脚本
