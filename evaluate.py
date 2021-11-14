@@ -19,7 +19,7 @@ if __name__ == '__main__':
         for gpu in gpus:
             tf.config.experimental.set_memory_growth(gpu, True)
 
-    val_data = MAMLDataLoader(args.val_data_dir, args.val_batch_size)
+    val_data = MAMLDataLoader(args.val_data_dir, args.val_batch_size,args.n_way, args.k_shot, args.q_query)
 
     mnist_model = MAML(args.input_shape, args.n_way)
     maml = MAML(args.input_shape, args.n_way)

@@ -17,37 +17,7 @@ class MAML:
         """
         self.input_shape = input_shape
         self.num_classes = num_classes
-        # self.meta_model = self.get_meta_model()
         self.meta_model = self.make_meta_model()
-
-    def get_meta_model(self):
-        """
-        建立meta模型
-        :return: meta model
-        """
-        model = models.Sequential([
-            layers.Conv2D(filters=64, kernel_size=3, padding='same', activation="relu",
-                          input_shape=self.input_shape, ),
-            layers.BatchNormalization(),
-            layers.MaxPool2D(pool_size=2, strides=2),
-
-            layers.Conv2D(filters=64, kernel_size=3, padding='same', activation="relu"),
-            layers.BatchNormalization(),
-            layers.MaxPool2D(pool_size=2, strides=2),
-
-            layers.Conv2D(filters=64, kernel_size=3, padding='same', activation="relu"),
-            layers.BatchNormalization(),
-            layers.MaxPool2D(pool_size=2, strides=2),
-
-            layers.Conv2D(filters=64, kernel_size=3, padding="same", activation="relu"),
-            layers.BatchNormalization(),
-            layers.MaxPool2D(pool_size=2, strides=2),
-
-            layers.Flatten(),
-            layers.Dense(self.num_classes, activation='softmax'),
-        ])
-
-        return model
 
     def make_meta_model(self):
         """
@@ -91,7 +61,7 @@ class MAML:
                     with tf.GradientTape() as inner_tape:
                         inner_output = self.meta_model(support_image, training=True)
                         inner_loss = losses.sparse_categorical_crossentropy(support_label, inner_output)
-                    # inner_loss = tf.reduce_mean(inner_loss)
+                        inner_loss = tf.reduce_mean(inner_loss)
                     # inner loop optimization
                     inner_grads = inner_tape.gradient(inner_loss, self.meta_model.trainable_variables)
                     inner_optimizer.apply_gradients(zip(inner_grads, self.meta_model.trainable_variables))
@@ -99,7 +69,7 @@ class MAML:
                 # outer loop with query-set
                 outer_output = self.meta_model(query_image, training=True)
                 outer_loss = losses.sparse_categorical_crossentropy(query_label, outer_output)
-                # outer_loss = tf.reduce_mean(outer_loss)
+                outer_loss = tf.reduce_mean(outer_loss)
                 batch_loss.append(outer_loss)
                 acc = tf.cast(tf.argmax(outer_output, axis=-1) == query_label, tf.float32)
                 acc = tf.reduce_mean(acc)
